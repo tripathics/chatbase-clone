@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req) => {
   // after authorization, get pages from notion using search API
+  console.log('Fetching pages');
   const { searchParams } = new URL(req.nextUrl);
   const access_token = searchParams.get('token');
 
@@ -41,6 +42,7 @@ export const GET = async (req) => {
     return { title, id: pageId }
   }))
   pageData = pageData.filter(page => page.title !== 'Untitled');
+  console.log("fetched: ", pageData);
   if (pageData.length === 0) {
     return NextResponse.json({ error: 'No pages found' })
   }
